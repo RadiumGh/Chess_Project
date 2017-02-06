@@ -17,7 +17,7 @@ class AI:
     def return_move_tuples(self, move):
         # move: "A4 B5" ==> [(0, 3), (1, 4)] ==> [(0, 4), (1, 3)] ==> [(4, 0), (3, 1)]
         
-        letter_dict = {'A': '0', 'B': '1', 'C': '2', 'D': '3', 'E': '4', 'F': '5', 'G': '6', 'H': '7'}
+        letter_dict = {'a': '0', 'b': '1', 'c': '2', 'd': '3', 'e': '4', 'f': '5', 'g': '6', 'h': '7'}
         move = letter_dict[move[0]] + move[1:3] + letter_dict[move[3]] + move[4:]
         mv = move.split(' ')
         start = (7 - int(mv[0][1]) + 1, int(mv[0][0]))
@@ -249,6 +249,12 @@ class AI:
         copy_state[end[0]] = copy_state[end[0]][: end[1]] + state[start[0]][start[1]] + copy_state[end[0]][end[1] + 1:]
         copy_state[start[0]] = copy_state[start[0]][:start[1]] + 'e' + copy_state[start[0]][start[1]+1:]
 
+        if(copy_state[end[0]][end[1]] == 'p' and end[0] == 0) : 
+            copy_state[end[0]] = copy_state[end[0]][: end[1]] + 'q' + copy_state[end[0]][end[1] + 1:]
+        elif(copy_state[end[0]][end[1]] == 'P' and end[0] == 7) : 
+            copy_state[end[0]] = copy_state[end[0]][: end[1]] + 'Q' + copy_state[end[0]][end[1] + 1:]
+
+
         return copy_state
 
     def generate_next_possible_safe_states(self, state, is_AI):
@@ -302,5 +308,5 @@ class AI:
                     final_decision = child
             return (best_val, final_decision)
 
-ai = AI("RNBQKBNR.qqqqqqqq.qqqqqqqq.eeeeeeee.eeeeeeee.eeeeeeee.pppppppp.rnbqkbnr")
-print(ai.state_is_safe(ai.convert_str_to_mat("RNBQeBNR.qqqqeqKq.qqqqqeqq.eeeeeeee.eeeeeeee.eeeeeeee.pppppppp.rnbqkbnr"), True))
+# ai = AI("RNBQKBNR.qqqqqqqq.qqqqqqqq.eeeeeeee.eeeeeeee.eeeeeeee.pppppppp.rnbqkbnr")
+# print(ai.state_is_safe(ai.convert_str_to_mat("RNBQeBNR.qqqqeqKq.qqqqqeqq.eeeeeeee.eeeeeeee.eeeeeeee.pppppppp.rnbqkbnr"), True))

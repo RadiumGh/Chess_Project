@@ -121,7 +121,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 EMAIL_USE_TLS = True
-EMAIL_HOST = "smpt.gmail.com"
+
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "icp95.project@gmail.com"
 EMAIL_HOST_PASSWORD = "ostadnowzari"

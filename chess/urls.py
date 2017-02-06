@@ -7,5 +7,6 @@ urlpatterns = [
 	url(r'^$', home, name='home'),
 	url(r'^game/$', game, name='game'),
 	url(r'^game/move/$', move, name='move'),
-	url(r'^active/$', active, name='active')
+	url(r'^active/$', active, name='active'), 
+	url(r'^signout/$', sign_out, name='signout')
 ]

@@ -54,29 +54,41 @@ table tr:nth-child(2n+1) td:nth-child(2n) {
 
 {% load index %}
 {% load static %}
-<center>
-	<table>
-		{% for i in "01234567" %}
-			<tr>
-				{% for j in "01234567" %}
-					<td><img class="piece" src="{% static board_imgs|index:i|index:j %}"></td>
-				{% endfor %}
-			</tr>
-		{% endfor %}
-	</table>
-</br>
 
-	<form action="{% url 'move' %}" method="post"></br>
+<div style="float: left; width: 500px;">
+	<form action="{% url 'signout' %}" method="post">
 		{% csrf_token %}
-		{% if turn == 'me' %}
-			Move : <input type="text" name="move" style="width: 100px"></br></br>
-			<input type="submit" name="submit" value="move"></br></br>
-		{% endif %}
-
-		{% if turn == 'ai' %}
-			<input type="submit" name="submit" value="show AI move"></br></br>
-		{% endif %}
-
-		{% if message %} {{ message }} {% endif %}
+		<h3>Wins : {{ wins }}</h3>
+		<h3>Loses : {{ loses }}</h3>
+		<input type="submit" name="signout" value="Sign Out">
 	</form>
-</center>
+</div>
+
+<div style="float: left;">
+	<center>
+		<table>
+			{% for i in "01234567" %}
+				<tr>
+					{% for j in "01234567" %}
+						<td><img class="piece" src="{% static board_imgs|index:i|index:j %}"></td>
+					{% endfor %}
+				</tr>
+			{% endfor %}
+		</table>
+	</br>
+
+		<form action="{% url 'move' %}" method="post"></br>
+			{% csrf_token %}
+			{% if turn == 'me' %}
+				<input type="text" name="move" placeholder="Enter your move here" style="width: 180px"></br></br>
+				<input autocomplete="required" type="submit" name="submit" value="move"></br></br>
+			{% endif %}
+
+			{% if turn == 'ai' %}
+				<input type="submit" name="submit" value="show AI move"></br></br>
+			{% endif %}
+
+			{% if message %} {{ message }} {% endif %}
+		</form>
+	</center>
+</div>

@@ -7,7 +7,8 @@ class User(models.Model):
 	password = models.CharField(max_length=30)
 	board = models.CharField(max_length=70, default="RNBQKBNR.PPPPPPPP.eeeeeeee.eeeeeeee.eeeeeeee.eeeeeeee.pppppppp.rnbqkbnr")
 	is_active = models.BooleanField(default=False)
-	activation_code = models.CharField(max_length=100)
+	activation_code = models.CharField(max_length=100, default="code")
+	loses, wins = models.IntegerField(default=0), models.IntegerField(default=0)
 
 	def __str__(self):
 		return self.username
