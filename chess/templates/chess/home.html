@@ -37,3 +37,21 @@ password:
 
 {% if register_error %}<h4>{{ register_error }}</h4>{% endif %}
 </form>
+
+
+
+<h2>Active :</h2>
+<form action="{% url 'active' %}" method="post">
+{% csrf_token %}
+
+Username :
+<input type="text" name="username"></br>
+
+Activation Code :
+<input type="text" name="code"></br>
+
+<input type="submit" name="Activate" value="login">
+<input type="reset" name="reset" value="clear">
+
+{% if login_error %}<h4>{{ login_error }}</h4>{% endif %}
+</form>

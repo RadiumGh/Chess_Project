@@ -38,6 +38,7 @@ table, th, td {
     height: 90px;
     width: 90px;
     padding: 5px;
+    
     text-align: center;
 }	
 table tr:nth-child(2n) td:nth-child(2n+1) {
@@ -64,7 +65,18 @@ table tr:nth-child(2n+1) td:nth-child(2n) {
 		{% endfor %}
 	</table>
 </br>
-<form action="" method="post">
-<p>Move : </p><input type="text" name="Move" maxlength="5" style="width: 100px">
-</form>
+
+	<form action="{% url 'move' %}" method="post"></br>
+		{% csrf_token %}
+		{% if turn == 'me' %}
+			Move : <input type="text" name="move" style="width: 100px"></br></br>
+			<input type="submit" name="submit" value="move"></br></br>
+		{% endif %}
+
+		{% if turn == 'ai' %}
+			<input type="submit" name="submit" value="show AI move"></br></br>
+		{% endif %}
+
+		{% if message %} {{ message }} {% endif %}
+	</form>
 </center>
