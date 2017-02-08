@@ -5,10 +5,10 @@
 {% csrf_token %}
 
 email:
-<input type="text" name="email" value="email"></br>
+<input type="text" name="email"></br>
 
 password:
-<input type="password" name="password" value="password"></br>
+<input type="password" name="password"></br>
 
 <input type="submit" name="submit" value="login">
 <input type="reset" name="reset" value="clear">
@@ -16,19 +16,21 @@ password:
 {% if login_error %}<h4>{{ login_error }}</h4>{% endif %}
 </form>
 
+
+
 </br>
 <h2>Register :</h2>
 <form action="{% url 'register' %}" method="post">
 {% csrf_token %}
 
 email:
-<input type="text" name="email" value="email"></br>
+<input type="text" name="email"></br>
 
 username:
-<input type="text" name="username" value="username"></br>
+<input type="text" name="username"></br>
 
 password:
-<input type="password" name="password" value="password"></br>
+<input type="password" name="password"></br>
 
 <input type="submit" name="submit" value="login">
 <input type="reset" name="reset" value="clear">
