@@ -1,2 +1,70 @@
+<!-- empty = e
+
+white_king = k
+black_king = K
+
+white_queen = q
+black_queen = Q
+
+white_rook = k
+black_rook = R
+
+white_knight = n
+black_knight = N
+
+white_bishop = b
+black_bishop = B
+
+white_pawn = p
+black_pawn = P 
+
+"RNBQKBNRPPPPPPPPeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeepppppppprnbqkbnr" -->
+
+
+<style type="text/css">
+
+.piece {
+	width: 80px;
+	height: 80px;
+}
+
+table {
+	align-self: center;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 7px solid black;
+    height: 90px;
+    width: 90px;
+    padding: 5px;
+    text-align: center;
+}	
+table tr:nth-child(2n) td:nth-child(2n+1) {
+	
+	background-color: gray;
+}
+table tr:nth-child(2n+1) td:nth-child(2n) {
+	background-color: gray;
+}
+
+
+</style>
+
+{% load index %}
 {% load static %}
-<img src="{% static 'chess.jpg' %}" style="width:750;height:750"></img>
+<center>
+	<table>
+		{% for i in "01234567" %}
+			<tr>
+				{% for j in "01234567" %}
+					<td><img class="piece" src="{% static board_imgs|index:i|index:j %}"></td>
+				{% endfor %}
+			</tr>
+		{% endfor %}
+	</table>
+</br>
+<form action="" method="post">
+<p>Move : </p><input type="text" name="Move" maxlength="5" style="width: 100px">
+</form>
+</center>

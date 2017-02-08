@@ -9,4 +9,3 @@ class User(models.Model):
 class Board(models.Model):
 	tiles = models.CharField(max_length=100)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
-		

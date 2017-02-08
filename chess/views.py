@@ -27,4 +27,20 @@ def register(request):
 
 def game(request):
 	user = User.objects.get(username='mamzi')
-	return render(request, 'chess/game.html')
+
+	state="RNBQKBNRPPPPPPPPeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeepppppppprnbqkbnr"
+	state_list = []
+
+	for i in range(8) :
+		state_list.append(state[8*i: 8*i + 9])
+
+	board_imgs = []
+	for row in state_list:
+		tmp = []
+		for piece in row:
+			tmp.append(piece+".png")
+		board_imgs.append(tmp)
+
+
+	return render(request, 'chess/game.html', {'state': state_list, 'board_imgs': board_imgs})
+
