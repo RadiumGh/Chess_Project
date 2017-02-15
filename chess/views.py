@@ -3,6 +3,7 @@ from django.http import *
 from .models import User
 from django.core.mail import send_mail
 from . import AI
+from random import *
 
 username = 'reza'
 
@@ -37,7 +38,7 @@ def register(request):
 		user = User(username=request.POST['username'].lower(), password=request.POST['password'], email=request.POST['email'].lower(),
 			board="RNBQKBNR.PPPPPPPP.eeeeeeee.eeeeeeee.eeeeeeee.eeeeeeee.pppppppp.rnbqkbnr")
 		
-		activation_code = '123456789'
+		activation_code = repr(randint(100000, 1000000))
 		user.activation_code = activation_code
 		user.save()
 
@@ -108,6 +109,7 @@ def game(request):
 	turn = request.session['turn']
 	return render(request, 'chess/game.html', {'state': state_list, 'board_imgs': board_imgs, 'message': message, 'turn': turn, 'wins': wins, 'loses': loses})
 
+
 def move(request):
 	global message
 
@@ -117,7 +119,7 @@ def move(request):
 	if(turn == 'me'):
 		move = request.POST['move'].lower().strip()
 		if(move == "reset"):
-			user.board = "RNeQKBNR.PPpPPPPP.eeeeeeee.eeeeeeee.eeeeeeee.eeeeeeee.pppppppp.rnbqkbnr"
+			user.board = "RNBQeBNR.qqqqqKqq.qqqqqqqq.eeeeeeee.eeeeeeee.eeeeeeee.pppppppp.rnbqkbnr"
 			user.save()
 
 			message = "Game has been reseted !"
@@ -126,24 +128,34 @@ def move(request):
 			ai_obj = AI.AI(user.board)
 			
 			if(move == "safe"):
-				return HttpResponse(ai_obj.state_is_safe(ai_obj.state_mat, True))
-				#return HttpResponse(ai_obj.generate_next_possible_safe_states(ai_obj.state_mat, True))
+				#return HttpResponse(ai_obj.state_is_safe(ai_obj.state_mat, True))
+				ls = ai_obj.generate_next_possible_safe_states(ai_obj.state_mat, True)
+				string = ""
+				for l in ls:
+					string += str(l) + '\n enddddd  '
+				return HttpResponse(string)
 			try:
 				if(ai_obj.move_is_valid(move)):	
 					mv_tuples = ai_obj.return_move_tuples(move)
 					new_state = ai_obj.update_state_with_move(mv_tuples[0], mv_tuples[1], ai_obj.state_mat, False)
-					
+					if(not ai_obj.state_is_safe(new_state, False)):
+						massage = "You cannot do that ! :|"
+						return HttpResponseRedirect('/chess/game')
 					user.board = ai_obj.convert_mat_to_str(new_state)
 					user.save()
 
-					# if(not ai_obj.generate_next_possible_safe_states(new_state, True)):
-					# 	request.session['turn'] = 'me'
-					# 	message = "YOU WON !"
-					# 	return HttpResponseRedirect('/chess/game')
+					if(not ai_obj.generate_next_possible_safe_states(new_state, True)):
+						request.session['turn'] = 'me'
+						message = "YOU WON !"
+						user.wins += 1
+						user.save()
+						return HttpResponseRedirect('/chess/game')
 					
 					if(not ai_obj.generate_next_possible_safe_states(new_state, False)):
 						request.session['turn'] = 'me'
 						message = "YOU LOST !"
+						user.loses += 1
+						user.save()
 						return HttpResponseRedirect('/chess/game')
 
 					request.session['turn'] = 'ai'
@@ -159,16 +171,20 @@ def move(request):
 		ai_obj = AI.AI(user.board)
 		new_state = ai_obj.convert_str_to_mat(ai_obj.board)
 
-		AI_move = ai_obj.mini_max(new_state, 4, -10000, 10000, True)[1]
+		AI_move = ai_obj.alpha_beta(new_state, 4, -1000000, 1000000, 1)[1]
 
 		if(not ai_obj.generate_next_possible_safe_states(AI_move, True)):
 			request.session['turn'] = 'me'
+			user.wins += 1
+			user.save()
 			message = "YOU WON !"
 			return HttpResponseRedirect('/chess/game')
 				
 		if(not ai_obj.generate_next_possible_safe_states(AI_move, False)):
 			request.session['turn'] = 'me'
 			message = "YOU LOST !"
+			user.loses += 1
+			user.save()
 			return HttpResponseRedirect('/chess/game')
 
 		user.board = ai_obj.convert_mat_to_str(AI_move)

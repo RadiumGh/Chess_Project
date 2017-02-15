@@ -28,6 +28,10 @@ black_pawn = P
 	height: 80px;
 }
 
+.index {
+	height: 20px;
+}
+	
 table {
 	align-self: center;
     border-collapse: collapse;
@@ -41,18 +45,18 @@ table, th, td {
     
     text-align: center;
 }	
-table tr:nth-child(2n) td:nth-child(2n+1) {
+table tr:nth-child(2n+1) td:nth-child(2n+1) {
 	
 	background-color: gray;
 }
-table tr:nth-child(2n+1) td:nth-child(2n) {
+table tr:nth-child(2n) td:nth-child(2n) {
 	background-color: gray;
 }
-
 
 </style>
 
 {% load index %}
+{% load sub %}
 {% load static %}
 
 <div style="float: left; width: 500px;">
@@ -69,11 +73,17 @@ table tr:nth-child(2n+1) td:nth-child(2n) {
 		<table>
 			{% for i in "01234567" %}
 				<tr>
+					<td><strong> {{ 8|sub:i }} </strong></td>
 					{% for j in "01234567" %}
 						<td><img class="piece" src="{% static board_imgs|index:i|index:j %}"></td>
 					{% endfor %}
 				</tr>
 			{% endfor %}
+			<tr>
+				{% for j in " ABCDEFGH" %}
+					<td class="index"><strong> {{ j }} </strong></td>
+				{% endfor %}
+			</tr>
 		</table>
 	</br>
 
