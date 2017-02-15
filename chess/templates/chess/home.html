@@ -1,54 +1,58 @@
-<center><h1>Play Chess Online :D</h1></center>
-</br></br>
-<tr>
-	<div style="padding-left: 250px; float: left; width: 30%;">
-		<td>
-			<h2 style="padding-left: 80px;">Login</h2>
-			<form action="{% url 'login' %}" method="post">
-			{% csrf_token %}
-			<input type="text" placeholder="Email" name="email"></br>
-			<input type="password" placeholder="Password" name="password"></br>
+<body>
+	
+	<center><h1>Play Chess Online :D</h1></center>
+	</br></br>
+	<tr>
+		<div style="padding-left: 250px; float: left; width: 30%;">
+			<td>
+				<h2 style="padding-left: 80px;">Login</h2>
+				<form action="{% url 'login' %}" method="post">
+				{% csrf_token %}
+				<input type="text" placeholder="Email" name="email"></br>
+				<input type="password" placeholder="Password" name="password"></br>
 
-			<input type="submit" name="submit" value="login" style="padding-left: 62px;">
-			<input type="reset" name="reset" value="clear" style="padding-left: 62px;" >
+				<input type="submit" name="submit" value="login" style="padding-left: 62px;">
+				<input type="reset" name="reset" value="clear" style="padding-left: 62px;" >
 
-			{% if login_error %}<h4>{{ login_error }}</h4>{% endif %}
-			</form>
-		</td>
-	</div>
+				{% if login_error %}<h4>{{ login_error }}</h4>{% endif %}
+				</form>
+			</td>
+		</div>
 
-	<div style="float: left; width: 31%;">
-		<td>
-			<h2 style="padding-left: 60px;">Register</h2>
-			<form action="{% url 'register' %}" method="post">
-			{% csrf_token %}
+		<div style="float: left; width: 31%;">
+			<td>
+				<h2 style="padding-left: 60px;">Register</h2>
+				<form action="{% url 'register' %}" method="post">
+				{% csrf_token %}
 
-			<input type="text" placeholder="Email" name="email"></br>
-			<input type="text" placeholder="User Name" name="username"></br>
-			<input type="password" placeholder="Password" name="password"></br>
+				<input type="text" placeholder="Email" name="email"></br>
+				<input type="text" placeholder="User Name" name="username"></br>
+				<input type="password" placeholder="Password" name="password"></br>
 
-			<input type="submit" name="submit" value="Register" style="padding-left: 51px;">
-			<input type="reset" name="reset" value="clear" style="padding-left: 51px;">
+				<input type="submit" name="submit" value="Register" style="padding-left: 51px;">
+				<input type="reset" name="reset" value="clear" style="padding-left: 51px;">
 
-			{% if register_error %}<h4>{{ register_error }}</h4>{% endif %}
-			</form></br>
-		</td>
-	</div>
+				{% if register_error %}<h4>{{ register_error }}</h4>{% endif %}
+				</form></br>
+			</td>
+		</div>
 
-	<div style="float: left;">
-		<td>
-			<h2 style="padding-left: 80px;">Active</h2>
-			<form action="{% url 'active' %}" method="post">
-			{% csrf_token %}
+		<div style="float: left;">
+			<td>
+				<h2 style="padding-left: 80px;">Active</h2>
+				<form action="{% url 'active' %}" method="post">
+				{% csrf_token %}
 
-			<input type="text" placeholder="User Name" name="username"></br>
-			<input type="text" placeholder="Activation Code" name="code"></br>
+				<input type="text" placeholder="User Name" name="username"></br>
+				<input type="text" placeholder="Activation Code" name="code"></br>
 
-			<input type="submit" name="Activate" value="Activate" style="padding-left: 51;">
-			<input type="reset" name="reset" value="clear" style="padding-left: 51px;">
+				<input type="submit" name="Activate" value="Activate" style="padding-left: 51;">
+				<input type="reset" name="reset" value="clear" style="padding-left: 51px;">
 
-			{% if active_error %}<h4>{{ active_error }}</h4>{% endif %}
-			</form>
-		</td>
-	</div>
-</tr>
+				{% if active_error %}<h4>{{ active_error }}</h4>{% endif %}
+				</form>
+			</td>
+		</div>
+	</tr>
+
+</body>

@@ -98,6 +98,17 @@ def game(request):
 	state=user.board
 	loses = user.loses
 	wins = user.wins
+	
+	users = User.objects.all()
+	scores_tpl_list = []
+	for u in users:
+		scores_tpl_list.append((u.wins - u.loses, u.username))
+	scores_tpl_list.sort()
+
+	scores_strs = []
+	for s in scores_tpl_list:
+		scores_strs .append(str(s[1]) + " ==> " + str(s[0]))
+
 	state_list = state.split('.')
 	board_imgs = []
 	for row in state_list:
@@ -107,7 +118,8 @@ def game(request):
 		board_imgs.append(tmp)
 
 	turn = request.session['turn']
-	return render(request, 'chess/game.html', {'state': state_list, 'board_imgs': board_imgs, 'message': message, 'turn': turn, 'wins': wins, 'loses': loses})
+	return render(request, 'chess/game.html', {'state': state_list, 'board_imgs': board_imgs, 'message': message, 'turn': turn, 'wins': wins, 'loses': loses,
+												 'scores': scores_strs, 'username': user.username })
 
 
 def move(request):

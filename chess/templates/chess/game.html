@@ -62,9 +62,16 @@ table tr:nth-child(2n) td:nth-child(2n) {
 <div style="float: left; width: 500px;">
 	<form action="{% url 'signout' %}" method="post">
 		{% csrf_token %}
+		<h3> Hello < {{ username }} > </h3>
 		<h3>Wins : {{ wins }}</h3>
 		<h3>Loses : {{ loses }}</h3>
-		<input type="submit" name="signout" value="Sign Out">
+		<input type="submit" name="signout" value="Sign Out"></br></br>
+
+		<h4> .: Leader Board :. </h4>
+
+		{% for score in scores %}
+			<p> {{ score }} </p></br>
+		{% endfor %}
 	</form>
 </div>
 

@@ -360,5 +360,5 @@ class AI:
             return v
 
 
-ai_obj = AI("RNBQeBNR.qqqqqKqq.qqqqqqqq.eeeeeeee.eeeeeeee.eeeeeeee.pppppppp.rnbqkbnr")
-print(ai_obj.state_is_safe(ai_obj.state_mat, True))
+# ai_obj = AI("RNBQeBNR.qqqqqKqq.qqqqqqqq.eeeeeeee.eeeeeeee.eeeeeeee.pppppppp.rnbqkbnr")
+# print(ai_obj.state_is_safe(ai_obj.state_mat, True))
